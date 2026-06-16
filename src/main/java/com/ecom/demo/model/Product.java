@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.*;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +29,7 @@ public class Product {
     private String description;
     private BigDecimal price;
     private String category;
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "dd-MM-yyyy")
     private Date releaseDate;
     private boolean isAvailable;
     private int stockQuantity;
