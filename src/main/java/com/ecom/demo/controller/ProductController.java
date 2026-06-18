@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -41,7 +44,13 @@ public class ProductController {
     @DeleteMapping("/product/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable int id){
         productService.deleteProduct(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Product Deleted Successfully",HttpStatus.OK);
     } 
 
+    @PutMapping("/product")
+    public ResponseEntity<Product> putMethodName(@RequestBody Product product) {
+        Product newProduct = productService.updateProduct(product);
+        System.out.println(product.toString());
+        return new ResponseEntity<>(newProduct,HttpStatus.OK);
+    }
 }

@@ -27,4 +27,12 @@ public class ProductService {
         productRepo.deleteById(id);
         return "Product Deleted Successfully";
     }
+
+    public Product updateProduct(Product product){
+        Product originalProduct = productRepo.findById(product.getId()).orElse(null);
+        if(originalProduct != null){
+            productRepo.save(product);
+        }
+        return product;
+    }
 }
