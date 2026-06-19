@@ -1,7 +1,6 @@
 package com.ecom.demo.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.demo.model.Product;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -53,4 +54,11 @@ public class ProductController {
         System.out.println(product.toString());
         return new ResponseEntity<>(newProduct,HttpStatus.OK);
     }
+
+    @GetMapping("/product/search")
+    public ResponseEntity<List<Product>> searchProduct(@RequestParam String keyword) {
+        List<Product> products= productService.searchProduct(keyword);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+    
 }
