@@ -1,12 +1,13 @@
 package com.ecom.demo.repo;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.ecom.demo.model.Order;
-import com.ecom.demo.model.dto.OrderResponse;
 
 @Repository
-public interface OrderRepo extends JpaRepository<OrderResponse,Integer> {
-
+public interface OrderRepo extends JpaRepository<Order,Integer> {
+    Optional<Order> findByOrderId(String orderId);
 }
