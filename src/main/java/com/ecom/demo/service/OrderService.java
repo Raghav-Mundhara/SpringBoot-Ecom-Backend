@@ -21,11 +21,17 @@ import com.ecom.demo.repo.ProductRepo;
 
 @Service
 public class OrderService {
+    private final OrderResponse orderResponse;
+
     @Autowired
     private OrderRepo orderRepo;
 
     @Autowired
     private ProductRepo productRepo;
+
+    OrderService(OrderResponse orderResponse) {
+        this.orderResponse = orderResponse;
+    }
 
     public OrderResponse placeOrder(OrderRequest request) {
         Order order = new Order();
@@ -73,9 +79,39 @@ public class OrderService {
         );
         return orderResponse;
     }
-
+// String orderId,
+//     String customerName,
+//     String email,
+//     String status,
+//     LocalDate orderDate,
+//     List<OrderItemResponse> items
     public List<OrderResponse> getOrders() {
-        return null;
+        List<Order> orders = orderRepo.findAll();
+        List<OrderResponse> orderResponses = new ArrayList<>();
+
+        for(Order order : orders){
+            List<OrderItemResponse> orderItemResponses = new ArrayList<>();
+
+            for(OrderItem item : order.getOrderItems()){
+                OrderItemResponse orderItemResponse= new OrderItemResponse(
+                    item.getProduct().toString(),
+                    item.getQuantity(),
+                    item.getTotalPrice()
+                );
+                orderItemResponses.add(orderItemResponse);
+            }
+
+            OrderResponse orderResponse = new OrderResponse(
+                order.getOrderId(),
+                order.getCustomerName(),
+                order.getEmail(),
+                order.getStatus(),
+                order.getOrderDate(),
+                orderItemResponses
+            );
+        }
+
+        return orderResponses;
     }
 
 }
