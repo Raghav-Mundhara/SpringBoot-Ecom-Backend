@@ -13,7 +13,7 @@ public class LoggingAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 
     //(return type,class_name.method_name(args))
-    @Before("execution(* *.*(..)")
+    @Before("execution(* com.ecom.demo.service.*.*(..))")
     public void logMethod(){
         LOGGER.info("Method Called");
     }
