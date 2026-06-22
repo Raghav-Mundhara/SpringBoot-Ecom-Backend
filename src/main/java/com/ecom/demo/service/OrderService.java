@@ -21,7 +21,7 @@ import com.ecom.demo.repo.ProductRepo;
 
 @Service
 public class OrderService {
-    private final OrderResponse orderResponse;
+    // private final OrderResponse orderResponse;
 
     @Autowired
     private OrderRepo orderRepo;
@@ -29,9 +29,9 @@ public class OrderService {
     @Autowired
     private ProductRepo productRepo;
 
-    OrderService(OrderResponse orderResponse) {
-        this.orderResponse = orderResponse;
-    }
+    // OrderService(OrderResponse orderResponse) {
+    //     this.orderResponse = orderResponse;
+    // }
 
     public OrderResponse placeOrder(OrderRequest request) {
         Order order = new Order();
@@ -109,6 +109,7 @@ public class OrderService {
                 order.getOrderDate(),
                 orderItemResponses
             );
+            orderResponses.add(orderResponse);
         }
 
         return orderResponses;
