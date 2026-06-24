@@ -14,8 +14,12 @@ public class ValidationAspect {
 
     @Around("execution(* com.ecom.demo.service.ProductService.getProductById(..)) && args(postId)")
     public Object validateAndUpdate(ProceedingJoinPoint jp,int postId) throws Throwable{
-        Object obj = jp.proceed();
         LOGGER.info("Inside Validation Aspect");
-        return null;
+        if(postId<0){
+            LOGGER.info("Updating postId into positive value");
+            postId = -postId;
+        }
+        Object obj = jp.proceed(new Object[]{postId});
+        return obj;
     }
 }
